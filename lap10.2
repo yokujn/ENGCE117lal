@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+void TowerHanoi(int m, char source, char destination, char auxiliary) {
+    if (m == 1) {
+        printf("Move disk from peg %c to peg %c\n", source, destination);
+    } else {
+        TowerHanoi(m - 1, source, auxiliary, destination);
+        printf("Move disk from peg %c to peg %c\n", source, destination);
+        TowerHanoi(m - 1, auxiliary, destination, source);
+    }
+}
+
+int main() {
+    int n = 3; // จำนวนจาน
+    TowerHanoi(n, 'A', 'C', 'B');
+    return 0;
+}
