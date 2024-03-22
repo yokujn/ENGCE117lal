@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <iostream>
+
+int KnapsackBT(int *w, int *v, int n, int wx, int i, int *x, int currentWeight, int currentValue) {
+    if (i == n) {
+        return currentValue;
+    }
+    if (currentWeight + w[i] <= wx) {
+        x[i] = 1;
+        int include = KnapsackBT(w, v, n, wx, i + 1, x, currentWeight + w[i], currentValue + v[i]);
+        x[i] = 0;
+        int exclude = KnapsackBT(w, v, n, wx, i + 1, x, currentWeight, currentValue);
+        if (include > exclude) {
+            return include;
+        } else {
+            return exclude;
+        }
+    } else {
+        return KnapsackBT(w, v, n, wx, i + 1, x, currentWeight, currentValue);
+    }
+}
+
+int main() {
+    int n = 5, wx = 11;
+    int w[5] = {1, 2, 5, 6, 7};
+    int v[5] = {1, 6, 18, 22, 28};
+    int *x = new int[n];
+    int vx = KnapsackBT(w, v, n, wx, 0, x, 0, 0);
+    printf("Value = %d\n", vx);
+    printf("Items taken: ");
+    for (int i = 0; i < n; i++) {
+        if (x[i] == 1) {
+            printf("%d ", i + 1);
+        }
+    }
+    delete[] x;
+    return 0;
+}
