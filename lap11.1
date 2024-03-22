@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int BinSearch(int data[], int n, int find) {
+    int left = 0;
+    int right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (data[mid] == find)
+            return mid;
+        else if (data[mid] < find)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1; // คืนค่า -1 ถ้าไม่พบข้อมูล
+}
+
+int main() {
+    int data[6] = {1, 2, 3, 4, 5, 7};
+    int n = sizeof(data) / sizeof(data[0]); // จำนวนข้อมูลในอาร์เรย์
+    int find = 5;
+    int pos = BinSearch(data, n, find);
+    if (pos != -1)
+        printf("Found at position %d\n", pos);
+    else
+        printf("Not found\n");
+    return 0;
+}
