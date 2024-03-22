@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <math.h>
+
+double f(double x);
+double RootOfFunction(double xl, double xr, double epsilon);
+
+int main() {
+    double root;
+    root = RootOfFunction(-1, 10, 0.1);
+    printf("Root = %.1f\n", root);
+    return 0;
+}
+
+double f(double x) {
+    return 2 * x - 5;
+}
+
+double RootOfFunction(double xl, double xr, double epsilon) {
+    double xm, fm, fl, fr;
+    fl = f(xl);
+    fr = f(xr);
+
+    while (fabs(fr - fl) > epsilon) {
+        xm = (xl + xr) / 2;
+        fm = f(xm);
+
+        if (fl * fm < 0)
+            xr = xm;
+        else
+            xl = xm;
+
+        fl = f(xl);
+        fr = f(xr);
+    }
+
+    return (xl + xr) / 2;
+}
